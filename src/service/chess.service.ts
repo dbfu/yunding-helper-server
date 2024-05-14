@@ -27,6 +27,8 @@ export class ChessService {
   async getChessInfo(name: string) {
     const code = chess[name];
 
+    console.log(code, 'code');
+
     if (!code) return { name: 'error' };
     let chessInfo: Chess = await this.chessModel.findOne({ code });
 
@@ -124,6 +126,6 @@ export class ChessService {
 
     console.log(id, 'id');
 
-    return await this.chessModel.findOne({ id }).exec();
+    return chessInfo;
   }
 }
