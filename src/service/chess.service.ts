@@ -16,12 +16,19 @@ export class ChessService {
     return chess;
   }
 
+  async getChessByName(name: string) {
+    return this.getChessInfo(name);
+  }
+
   async updateData() {
     return this.getChessInfo(chess[0]);
   }
 
   async getChessInfo(name: string) {
-    let chessInfo: Chess = await this.chessModel.findOne({ code: name });
+    const code = chess[name];
+
+    if (!code) return { name: 'error' };
+    let chessInfo: Chess = await this.chessModel.findOne({ code });
 
     console.log(chessInfo);
 
@@ -30,10 +37,12 @@ export class ChessService {
     }
 
     let data = (await fetch(
-      `https://d2.tft.tools/stats2/unit/1100/${name}/14091/1`
+      `https://d2.tft.tools/stats2/unit/1100/${code}/14091/1`
     ).then(res => res.text())) as any;
 
     data = JSON.parse(data);
+
+    console.log(data);
 
     chessInfo = {
       icon: `https://ap.tft.tools/img/face/${data.unitId}.jpg`,
@@ -109,7 +118,7 @@ export class ChessService {
       })
       .join(' ');
 
-    chessInfo.code = name;
+    chessInfo.code = code;
 
     const { id } = await this.chessModel.create(chessInfo); // an "
 

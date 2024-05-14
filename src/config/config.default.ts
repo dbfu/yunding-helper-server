@@ -6,7 +6,7 @@ export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1715658408616_3811',
   koa: {
-    port: 7001,
+    port: 8321,
   },
   mongoose: {
     dataSource: {

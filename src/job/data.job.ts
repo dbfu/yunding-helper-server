@@ -5,7 +5,6 @@ import { ChessService } from '../service/chess.service';
 @Job({
   cronTime: '0 0 0 * * *',
   start: true,
-  runOnInit: true,
 })
 export class DataSyncCheckerJob implements IJob {
   @Inject()
